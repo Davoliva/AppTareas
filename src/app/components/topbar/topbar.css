@@ -1,0 +1,260 @@
+/* ══════════════════════════════════════════════════════════════════════
+   TOPBAR — Estilos
+   ══════════════════════════════════════════════════════════════════════ */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: 6.4rem;
+  background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 0 2rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .topbar { padding: 0 3.2rem; }
+}
+
+/* ── Lado izquierdo ─────────────────────────────────────────────────── */
+.topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+.topbar__menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.topbar__menu-btn:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+@media (min-width: 1024px) {
+  .topbar__menu-btn { display: none; }
+}
+
+.topbar__title {
+  font-family: var(--font-headline);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .topbar__title { font-size: 2.4rem; }
+}
+
+/* ── Lado derecho ───────────────────────────────────────────────────── */
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: 0;
+  flex: 1;
+  max-width: 60rem;
+  justify-content: flex-end;
+}
+
+/* ── Buscador ───────────────────────────────────────────────────────── */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--color-surface-container-high);
+  border-radius: 1.2rem;
+  padding: 0 1.2rem;
+  height: 4rem;
+  flex: 1;
+  max-width: 36rem;
+  min-width: 0;
+  transition: all 0.2s ease;
+  border: 1.5px solid transparent;
+}
+
+.search-box:focus-within {
+  background: var(--color-surface-container-lowest);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(145, 0, 10, 0.08);
+}
+
+.search-box__icon {
+  color: var(--color-on-surface-variant);
+  font-size: 2rem !important;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.search-box__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  color: var(--color-on-surface);
+  outline: none;
+}
+
+.search-box__input::placeholder {
+  color: var(--color-on-surface-variant);
+  opacity: 0.5;
+}
+
+.search-box__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-on-surface-variant);
+  border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.search-box__clear:hover {
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+}
+
+/* ── Toggle de tema (switch deslizante) ─────────────────────────────── */
+.theme-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.theme-toggle__icon-label {
+  font-size: 2rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  color: var(--color-on-surface-variant);
+  transition: color 0.3s ease;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 4.8rem;
+  height: 2.6rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.theme-toggle__slider {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-container-highest);
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  border: 2px solid var(--color-outline-variant);
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.3rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--color-on-surface-variant);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Estado activo (dark mode ON) */
+.theme-toggle--active .theme-toggle__slider {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.theme-toggle--active .theme-toggle__thumb {
+  transform: translateX(2.2rem);
+  background: var(--color-on-primary);
+}
+
+/* Hover */
+.theme-toggle:hover .theme-toggle__thumb {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transform: scale(1.1);
+}
+
+.theme-toggle--active:hover .theme-toggle__thumb {
+  transform: translateX(2.2rem) scale(1.1);
+}
+
+/* ── Botón nueva tarea (desktop) ────────────────────────────────────── */
+.topbar__add-btn { display: none; }
+
+@media (min-width: 640px) {
+  .topbar__add-btn {
+    display: flex;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Botones (sistema de diseño) ────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.4rem;
+  border-radius: 1rem;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn mat-icon {
+  font-size: 1.8rem !important;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 12px rgba(145, 0, 10, 0.2);
+}
+
+.btn--primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 16px rgba(145, 0, 10, 0.3);
+  transform: translateY(-1px);
+}

@@ -1,0 +1,95 @@
+@if (isOpen) {
+  <div class="modal-backdrop" (click)="onClose()" role="dialog" aria-modal="true">
+    <div class="modal" (click)="$event.stopPropagation()">
+
+      <!-- Header -->
+      <div class="modal__header">
+        <h2 class="modal__title">
+          <mat-icon>person</mat-icon>
+          Ajustes de Perfil
+        </h2>
+        <button class="modal__close" (click)="onClose()" aria-label="Cerrar">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <!-- Formulario -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="modal__form" novalidate>
+
+        <!-- Sección del avatar -->
+        <div class="profile-avatar-section">
+          <div class="profile-avatar-preview">
+            @if (form.get('avatarUrl')?.value) {
+              <img
+                [src]="form.get('avatarUrl')?.value"
+                alt="Vista previa del avatar"
+                class="profile-avatar-preview__img"
+              />
+            } @else {
+              <span class="profile-avatar-preview__initials">{{ userInitials }}</span>
+            }
+            <label class="profile-avatar-preview__edit" for="avatar-file-input" title="Cambiar imagen">
+              <mat-icon>camera_alt</mat-icon>
+            </label>
+          </div>
+          <div class="profile-avatar-info">
+            <p class="profile-avatar-info__title">Imagen de perfil</p>
+            <p class="profile-avatar-info__desc">JPG, PNG o GIF. Máximo 2 MB.</p>
+            <label class="btn btn--ghost btn--small" for="avatar-file-input">
+              <mat-icon>upload</mat-icon>
+              Subir imagen
+            </label>
+            <input
+              type="file"
+              id="avatar-file-input"
+              class="hidden-file-input"
+              accept="image/jpeg,image/png,image/gif,image/webp"
+              (change)="onFileSelected($event)"
+            />
+          </div>
+        </div>
+
+        <!-- Nombre -->
+        <div class="form-field">
+          <label class="form-label" for="profile-nombre">Nombre *</label>
+          <input
+            id="profile-nombre"
+            type="text"
+            class="form-input"
+            [class.form-input--error]="form.get('nombre')?.invalid && form.get('nombre')?.touched"
+            formControlName="nombre"
+            placeholder="Tu nombre"
+            autocomplete="given-name"
+          />
+          @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+            <span class="form-error">Nombre requerido (mínimo 2 caracteres)</span>
+          }
+        </div>
+
+        <!-- Apellidos -->
+        <div class="form-field">
+          <label class="form-label" for="profile-apellidos">Apellidos</label>
+          <input
+            id="profile-apellidos"
+            type="text"
+            class="form-input"
+            formControlName="apellidos"
+            placeholder="Tus apellidos"
+            autocomplete="family-name"
+          />
+        </div>
+
+        <!-- Footer -->
+        <div class="modal__footer">
+          <button type="button" class="btn btn--ghost" (click)="onClose()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--primary">
+            <mat-icon>save</mat-icon>
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

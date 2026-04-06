@@ -1,0 +1,115 @@
+/* ══════════════════════════════════════════════════════════════════════
+   APP — Estilos del componente raíz
+   Solo contiene estilos de LAYOUT global y estado vacío.
+   Los estilos de cada componente están en su propia carpeta.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Layout shell ───────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+/* ── Main wrapper ───────────────────────────────────────────────────── */
+.main-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  .main-wrapper {
+    margin-left: 28rem;
+  }
+}
+
+/* ── Contenido principal ────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding: 2.4rem 2rem 4rem;
+  max-width: 100rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .main-content {
+    padding: 3.2rem 3.2rem 4rem;
+  }
+}
+
+/* ── Lista de tareas ────────────────────────────────────────────────── */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Estado vacío ───────────────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  padding: 8rem 2rem;
+  text-align: center;
+}
+
+.empty-state__icon {
+  font-size: 6rem !important;
+  width: 6rem !important;
+  height: 6rem !important;
+  color: var(--color-on-surface-variant);
+  opacity: 0.25;
+}
+
+.empty-state__title {
+  font-family: var(--font-headline);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-on-surface-variant);
+  opacity: 0.6;
+  max-width: 32rem;
+}
+
+/* ── Botón (para el empty state) ────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.4rem;
+  border-radius: 1rem;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn mat-icon { font-size: 1.8rem !important; width: 1.8rem !important; height: 1.8rem !important; }
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 12px rgba(145, 0, 10, 0.2);
+}
+
+.btn--primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 16px rgba(145, 0, 10, 0.3);
+  transform: translateY(-1px);
+}

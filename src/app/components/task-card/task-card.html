@@ -1,0 +1,85 @@
+<li
+  class="task-card"
+  [class.task-card--completed]="task.completed"
+  [attr.aria-label]="task.title"
+>
+  <!-- Franja lateral de color según categoría -->
+  <span
+    class="task-card__stripe"
+    [class.task-card__stripe--trabajo]="task.category === 'Trabajo'"
+    [class.task-card__stripe--personal]="task.category === 'Personal'"
+    [class.task-card__stripe--ideas]="task.category === 'Ideas'"
+  ></span>
+
+  <!-- Checkbox completar/descompletar -->
+  <button
+    class="task-card__check"
+    [class.task-card__check--done]="task.completed"
+    (click)="toggled.emit(task.id)"
+    [attr.aria-pressed]="task.completed"
+    [attr.aria-label]="task.completed ? 'Marcar como pendiente' : 'Marcar como completada'"
+    [id]="'check-task-' + task.id"
+  >
+    @if (task.completed) {
+      <mat-icon>check</mat-icon>
+    }
+  </button>
+
+  <!-- Contenido de la tarea -->
+  <div class="task-card__body">
+    <h3 class="task-card__title" [class.task-card__title--done]="task.completed">
+      {{ task.title }}
+    </h3>
+
+    @if (task.description) {
+      <p class="task-card__description">{{ task.description }}</p>
+    }
+
+    <!-- Meta: categoría, prioridad, fecha -->
+    <div class="task-card__meta">
+      <span
+        class="tag"
+        [class.tag--trabajo]="task.category === 'Trabajo'"
+        [class.tag--personal]="task.category === 'Personal'"
+        [class.tag--ideas]="task.category === 'Ideas'"
+      >
+        <mat-icon class="tag__icon">{{ getCategoryIcon(task.category) }}</mat-icon>
+        {{ task.category }}
+      </span>
+
+      <span class="priority-badge" [class]="'priority-badge--' + task.priority.toLowerCase()">
+        <mat-icon class="priority-badge__icon">flag</mat-icon>
+        {{ task.priority }}
+      </span>
+
+      <span class="task-card__date">
+        <mat-icon class="task-card__date-icon">calendar_today</mat-icon>
+        {{ formatDate(task.createdAt) }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="task-card__actions">
+    @if (!task.completed) {
+      <button
+        class="btn-icon btn-icon--edit"
+        (click)="edited.emit(task)"
+        [attr.aria-label]="'Editar ' + task.title"
+        [id]="'edit-task-' + task.id"
+        title="Editar tarea"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    }
+    <button
+      class="btn-icon btn-icon--delete"
+      (click)="deleted.emit(task.id)"
+      [attr.aria-label]="'Eliminar ' + task.title"
+      [id]="'delete-task-' + task.id"
+      title="Eliminar tarea"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</li>

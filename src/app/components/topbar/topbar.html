@@ -1,0 +1,69 @@
+<header class="topbar">
+  <!-- Lado izquierdo: menú + título -->
+  <div class="topbar__left">
+    <button
+      class="topbar__menu-btn"
+      (click)="sidebarToggled.emit()"
+      aria-label="Abrir menú"
+      id="btn-toggle-sidebar"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="topbar__title">Mis Tareas</h1>
+  </div>
+
+  <!-- Lado derecho: búsqueda + toggle tema + nueva tarea -->
+  <div class="topbar__right">
+    <!-- Buscador -->
+    <div class="search-box">
+      <mat-icon class="search-box__icon">search</mat-icon>
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Buscar tareas..."
+        class="search-box__input"
+        [value]="searchQuery"
+        (input)="onSearchInput($event)"
+        aria-label="Buscar tareas"
+      />
+      @if (searchQuery) {
+        <button
+          class="search-box__clear"
+          (click)="clearSearch()"
+          aria-label="Limpiar búsqueda"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+
+    <!-- Toggle tema oscuro / claro -->
+    <div class="theme-toggle-wrapper">
+      <mat-icon class="theme-toggle__icon-label">
+        {{ darkMode ? 'dark_mode' : 'light_mode' }}
+      </mat-icon>
+      <button
+        class="theme-toggle"
+        [class.theme-toggle--active]="darkMode"
+        (click)="themeToggled.emit()"
+        [attr.aria-pressed]="darkMode"
+        aria-label="Cambiar tema oscuro / claro"
+        id="btn-toggle-theme"
+      >
+        <span class="theme-toggle__slider">
+          <span class="theme-toggle__thumb"></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Botón nueva tarea (solo desktop) -->
+    <button
+      class="btn btn--primary topbar__add-btn"
+      (click)="addTaskClicked.emit()"
+      id="btn-nueva-tarea-topbar"
+    >
+      <mat-icon>add</mat-icon>
+      <span>Nueva Tarea</span>
+    </button>
+  </div>
+</header>

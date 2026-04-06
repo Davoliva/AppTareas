@@ -1,0 +1,136 @@
+<!-- ══════════════════════════════════════════════════════════════════════
+     APP — Template raíz
+     Orquesta todos los componentes hijos. Fácil de leer y modificar.
+     ══════════════════════════════════════════════════════════════════════ -->
+
+<div class="app-shell">
+
+  <!-- ╔═══════════════════════════════════════════════════════════════╗
+       ║  SIDEBAR — Barra lateral con navegación y estadísticas      ║
+       ╚═══════════════════════════════════════════════════════════════╝ -->
+  <app-sidebar
+    [isOpen]="sidebarOpen()"
+    [activeFilter]="taskService.activeFilter()"
+    [pendingCount]="taskService.pendingCount()"
+    [completedCount]="taskService.completedCount()"
+    [totalTasks]="taskService.totalTasks()"
+    [progressPercent]="taskService.progressPercent()"
+    [userInitials]="profileService.userInitials()"
+    [userAvatarUrl]="profileService.userProfile().avatarUrl"
+    (closed)="closeSidebar()"
+    (filterChanged)="onFilterChanged($event)"
+    (addTaskClicked)="openAddModal()"
+    (profileClicked)="openProfileModal()"
+  />
+
+  <!-- ╔═══════════════════════════════════════════════════════════════╗
+       ║  CONTENIDO PRINCIPAL                                         ║
+       ╚═══════════════════════════════════════════════════════════════╝ -->
+  <div class="main-wrapper">
+
+    <!-- TOPBAR — Buscador, toggle tema, nueva tarea -->
+    <app-topbar
+      [searchQuery]="taskService.searchQuery()"
+      [darkMode]="themeService.darkMode()"
+      (sidebarToggled)="toggleSidebar()"
+      (searchChanged)="onSearchChanged($event)"
+      (themeToggled)="themeService.toggle()"
+      (addTaskClicked)="openAddModal()"
+    />
+
+    <!-- CONTENIDO -->
+    <main class="main-content">
+
+      <!-- Pestañas de filtro rápido -->
+      <app-filter-tabs
+        [activeFilter]="taskService.activeFilter()"
+        [totalTasks]="taskService.totalTasks()"
+        [pendingCount]="taskService.pendingCount()"
+        [completedCount]="taskService.completedCount()"
+        (filterChanged)="onFilterChanged($event)"
+      />
+
+      <!-- Lista de tareas o estado vacío -->
+      @if (taskService.filteredTasks().length === 0) {
+        <div class="empty-state">
+          <mat-icon class="empty-state__icon">inbox</mat-icon>
+          <p class="empty-state__title">
+            @if (taskService.searchQuery()) {
+              Sin resultados para "{{ taskService.searchQuery() }}"
+            } @else if (taskService.activeFilter() === 'completadas') {
+              No hay tareas completadas
+            } @else if (taskService.activeFilter() === 'pendientes') {
+              ¡Todo al día! No hay tareas pendientes
+            } @else {
+              No hay tareas aún
+            }
+          </p>
+          @if (!taskService.searchQuery() && taskService.activeFilter() === 'todas') {
+            <button class="btn btn--primary" (click)="openAddModal()" id="btn-crear-primera">
+              <mat-icon>add</mat-icon>
+              Crear primera tarea
+            </button>
+          }
+        </div>
+      } @else {
+        <ul class="task-list" role="list">
+          @for (task of taskService.filteredTasks(); track trackById($index, task)) {
+            <app-task-card
+              [task]="task"
+              (toggled)="onTaskToggled($event)"
+              (edited)="openEditModal($event)"
+              (deleted)="openDeleteConfirm($event)"
+            />
+          }
+        </ul>
+      }
+    </main>
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════════╗
+     ║  MODALES — Se renderizan fuera del layout principal             ║
+     ╚═══════════════════════════════════════════════════════════════════╝ -->
+
+<!-- Modal: Crear tarea -->
+<app-task-form-modal
+  mode="add"
+  [isOpen]="showAddModal()"
+  (submitted)="onTaskAdded($event)"
+  (closed)="closeAddModal()"
+/>
+
+<!-- Modal: Editar tarea -->
+<app-task-form-modal
+  mode="edit"
+  [isOpen]="editingTask() !== null"
+  [editTask]="editingTask()"
+  (submitted)="onTaskEdited($event)"
+  (closed)="closeEditModal()"
+/>
+
+<!-- Modal: Confirmar eliminación -->
+<app-confirm-dialog
+  [isOpen]="deleteTaskId() !== null"
+  title="Eliminar tarea"
+  message="¿Estás seguro de que quieres eliminar esta tarea? Esta acción no se puede deshacer."
+  confirmText="Eliminar"
+  (confirmed)="onDeleteConfirmed()"
+  (cancelled)="closeDeleteConfirm()"
+/>
+
+<!-- Modal: Perfil de usuario -->
+<app-profile-modal
+  [isOpen]="showProfileModal()"
+  [userProfile]="profileService.userProfile()"
+  [userInitials]="profileService.userInitials()"
+  (saved)="onProfileSaved($event)"
+  (closed)="closeProfileModal()"
+/>
+
+<!-- Toast: Confirmación de guardado -->
+<app-toast
+  [isVisible]="profileService.showSaveToast()"
+  message="¡Cambios guardados correctamente!"
+  (dismissed)="profileService.dismissToast()"
+/>

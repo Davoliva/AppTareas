@@ -1,0 +1,37 @@
+<div class="filter-tabs" role="tablist">
+  <button
+    role="tab"
+    class="filter-tab"
+    [class.filter-tab--active]="activeFilter === 'todas'"
+    (click)="filterChanged.emit('todas')"
+    id="tab-todas"
+    [attr.aria-selected]="activeFilter === 'todas'"
+  >
+    Todas
+    <span class="filter-tab__count">{{ totalTasks }}</span>
+  </button>
+
+  <button
+    role="tab"
+    class="filter-tab"
+    [class.filter-tab--active]="activeFilter === 'pendientes'"
+    (click)="filterChanged.emit('pendientes')"
+    id="tab-pendientes"
+    [attr.aria-selected]="activeFilter === 'pendientes'"
+  >
+    Pendientes
+    <span class="filter-tab__count">{{ pendingCount }}</span>
+  </button>
+
+  <button
+    role="tab"
+    class="filter-tab"
+    [class.filter-tab--active]="activeFilter === 'completadas'"
+    (click)="filterChanged.emit('completadas')"
+    id="tab-completadas"
+    [attr.aria-selected]="activeFilter === 'completadas'"
+  >
+    Completadas
+    <span class="filter-tab__count">{{ completedCount }}</span>
+  </button>
+</div>

@@ -1,0 +1,209 @@
+/* ══════════════════════════════════════════════════════════════════════
+   TASK FORM MODAL — Estilos (crear / editar tarea)
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Backdrop ───────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: fade-in 0.2s ease;
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────── */
+.modal {
+  background: var(--color-surface-container-lowest);
+  border-radius: 2rem;
+  width: 100%;
+  max-width: 54rem;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  animation: modal-slide-up 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.4rem 2.4rem 0;
+}
+
+.modal__title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-headline);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-on-surface);
+}
+
+.modal__title mat-icon {
+  font-size: 2.2rem !important;
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+}
+
+.modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 0.8rem;
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal__close:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+  transform: rotate(90deg);
+}
+
+/* ── Formulario ─────────────────────────────────────────────────────── */
+.modal__form {
+  padding: 2rem 2.4rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.form-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-on-surface-variant);
+}
+
+.form-input {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--color-outline-variant);
+  background: var(--color-surface-container-high);
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: var(--color-on-surface);
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface-container-lowest);
+  box-shadow: 0 0 0 3px rgba(145, 0, 10, 0.08);
+}
+
+.form-input--error {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 8rem;
+  line-height: 1.5;
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.form-error {
+  font-size: 1.2rem;
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────── */
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  padding-top: 0.8rem;
+}
+
+/* ── Botones ────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.4rem;
+  border-radius: 1rem;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn mat-icon { font-size: 1.8rem !important; width: 1.8rem !important; height: 1.8rem !important; }
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 12px rgba(145, 0, 10, 0.2);
+}
+
+.btn--primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 16px rgba(145, 0, 10, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  border: 1.5px solid var(--color-outline-variant);
+}
+
+.btn--ghost:hover {
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+}
+
+/* ── Animaciones ────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-slide-up {
+  from { opacity: 0; transform: translateY(2rem) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

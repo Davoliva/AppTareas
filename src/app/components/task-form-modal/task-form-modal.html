@@ -1,0 +1,81 @@
+@if (isOpen) {
+  <div class="modal-backdrop" (click)="onClose()" role="dialog" aria-modal="true">
+    <div class="modal" (click)="$event.stopPropagation()">
+
+      <!-- Header -->
+      <div class="modal__header">
+        <h2 class="modal__title">
+          <mat-icon>{{ mode === 'add' ? 'add_task' : 'edit' }}</mat-icon>
+          {{ mode === 'add' ? 'Nueva Tarea' : 'Editar Tarea' }}
+        </h2>
+        <button class="modal__close" (click)="onClose()" aria-label="Cerrar">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <!-- Formulario -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="modal__form" novalidate>
+
+        <!-- Título -->
+        <div class="form-field">
+          <label class="form-label" for="task-title">Título *</label>
+          <input
+            id="task-title"
+            type="text"
+            class="form-input"
+            [class.form-input--error]="form.get('title')?.invalid && form.get('title')?.touched"
+            formControlName="title"
+            placeholder="¿Qué necesitas hacer?"
+            autocomplete="off"
+          />
+          @if (form.get('title')?.invalid && form.get('title')?.touched) {
+            <span class="form-error">Escribe un título (mínimo 3 caracteres)</span>
+          }
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-field">
+          <label class="form-label" for="task-description">Descripción (opcional)</label>
+          <textarea
+            id="task-description"
+            class="form-input form-textarea"
+            formControlName="description"
+            placeholder="Añade detalles adicionales..."
+            rows="3"
+          ></textarea>
+        </div>
+
+        <!-- Categoría + Prioridad -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="task-category">Categoría</label>
+            <select id="task-category" class="form-input form-select" formControlName="category">
+              <option value="Trabajo">💼 Trabajo</option>
+              <option value="Personal">👤 Personal</option>
+              <option value="Ideas">💡 Ideas</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="task-priority">Prioridad</label>
+            <select id="task-priority" class="form-input form-select" formControlName="priority">
+              <option value="Alta">🔴 Alta</option>
+              <option value="Media">🟡 Media</option>
+              <option value="Baja">🟢 Baja</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal__footer">
+          <button type="button" class="btn btn--ghost" (click)="onClose()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--primary">
+            <mat-icon>{{ mode === 'add' ? 'add' : 'save' }}</mat-icon>
+            {{ mode === 'add' ? 'Crear Tarea' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

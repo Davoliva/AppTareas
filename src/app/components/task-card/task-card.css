@@ -1,0 +1,262 @@
+/* ══════════════════════════════════════════════════════════════════════
+   TASK CARD — Estilos
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Tarjeta ────────────────────────────────────────────────────────── */
+.task-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  background: var(--color-surface-container-lowest);
+  border-radius: 1.6rem;
+  padding: 2rem 2rem 2rem 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  list-style: none;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.task-card--completed {
+  background: var(--color-surface-container-high);
+  opacity: 0.7;
+}
+
+.task-card--completed:hover { opacity: 0.85; }
+
+/* ── Franja lateral de color ────────────────────────────────────────── */
+.task-card__stripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.5rem;
+  border-radius: 1.6rem 0 0 1.6rem;
+}
+
+.task-card__stripe--trabajo  { background: var(--color-primary); }
+.task-card__stripe--personal { background: var(--color-secondary); }
+.task-card__stripe--ideas    { background: #7c3aed; }
+
+/* ── Checkbox ───────────────────────────────────────────────────────── */
+.task-card__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  min-width: 2.6rem;
+  border-radius: 0.8rem;
+  border: 2px solid var(--color-primary-fixed-dim);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 2rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.task-card__check:hover {
+  border-color: var(--color-primary);
+  background: rgba(145, 0, 10, 0.05);
+  transform: scale(1.1);
+}
+
+.task-card__check--done {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.task-card__check--done:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+.task-card__check mat-icon {
+  font-size: 1.6rem !important;
+  width: 1.6rem !important;
+  height: 1.6rem !important;
+  color: var(--color-on-primary);
+}
+
+/* ── Cuerpo ─────────────────────────────────────────────────────────── */
+.task-card__body {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.2rem;
+}
+
+.task-card__title {
+  font-family: var(--font-headline);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  line-height: 1.35;
+  margin-bottom: 0.6rem;
+  word-break: break-word;
+  transition: color 0.3s ease;
+}
+
+.task-card__title--done {
+  text-decoration: line-through;
+  color: var(--color-on-surface-variant);
+  opacity: 0.6;
+}
+
+.task-card__description {
+  font-size: 1.3rem;
+  color: var(--color-on-surface-variant);
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  word-break: break-word;
+}
+
+/* ── Metadatos ──────────────────────────────────────────────────────── */
+.task-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.task-card__date {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1.1rem;
+  color: var(--color-on-surface-variant);
+  opacity: 0.55;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.task-card__date-icon {
+  font-size: 1.3rem !important;
+  width: 1.3rem !important;
+  height: 1.3rem !important;
+}
+
+/* ── Tags (categoría) ───────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag__icon {
+  font-size: 1.2rem !important;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+}
+
+.tag--trabajo {
+  background: var(--color-secondary-fixed);
+  color: var(--color-secondary);
+}
+
+.tag--personal {
+  background: var(--color-tertiary-fixed);
+  color: var(--color-on-tertiary-fixed-variant);
+}
+
+.tag--ideas {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+:host-context(.dark-theme) .tag--ideas {
+  background: #2e1065;
+  color: #c4b5fd;
+}
+
+/* ── Badges (prioridad) ─────────────────────────────────────────────── */
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.priority-badge__icon {
+  font-size: 1.2rem !important;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+}
+
+.priority-badge--alta  { background: #fee2e2; color: #dc2626; }
+.priority-badge--media { background: #fef3c7; color: #d97706; }
+.priority-badge--baja  { background: #dcfce7; color: #16a34a; }
+
+:host-context(.dark-theme) .priority-badge--alta  { background: #450a0a; color: #fca5a5; }
+:host-context(.dark-theme) .priority-badge--media { background: #451a03; color: #fcd34d; }
+:host-context(.dark-theme) .priority-badge--baja  { background: #052e16; color: #86efac; }
+
+/* ── Acciones (editar / eliminar) ───────────────────────────────────── */
+.task-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.task-card:hover .task-card__actions { opacity: 1; }
+
+/* En móvil los botones siempre son visibles */
+@media (max-width: 639px) {
+  .task-card__actions { opacity: 1; }
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.8rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--color-on-surface-variant);
+  background: transparent;
+}
+
+.btn-icon mat-icon {
+  font-size: 1.8rem !important;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+}
+
+.btn-icon--edit:hover {
+  background: rgba(145, 0, 10, 0.08);
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.btn-icon--delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  transform: scale(1.1);
+}
+
+:host-context(.dark-theme) .btn-icon--delete:hover {
+  background: #450a0a;
+  color: #fca5a5;
+}

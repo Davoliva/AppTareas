@@ -1,0 +1,105 @@
+<!-- ── OVERLAY (solo móvil, cierra al hacer click fuera) ── -->
+@if (isOpen) {
+  <div class="sidebar-overlay" (click)="closed.emit()" aria-hidden="true"></div>
+}
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" [class.sidebar--open]="isOpen">
+
+  <!-- Branding -->
+  <div class="sidebar__brand">
+    <span class="sidebar__logo">✓</span>
+    <div>
+      <h2 class="sidebar__app-name">MisTareas</h2>
+      <p class="sidebar__tagline">Organiza tu día</p>
+    </div>
+  </div>
+
+  <!-- Estadísticas rápidas -->
+  <div class="sidebar__stats">
+    <div class="stat-card">
+      <span class="stat-card__value">{{ pendingCount }}</span>
+      <span class="stat-card__label">Pendientes</span>
+    </div>
+    <div class="stat-card stat-card--success">
+      <span class="stat-card__value">{{ completedCount }}</span>
+      <span class="stat-card__label">Completadas</span>
+    </div>
+  </div>
+
+  <!-- Barra de progreso -->
+  <div class="sidebar__progress">
+    <div class="progress-header">
+      <span class="progress-label">Progreso de hoy</span>
+      <span class="progress-value">{{ progressPercent }}%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-bar__fill" [style.width.%]="progressPercent"></div>
+    </div>
+  </div>
+
+  <!-- Navegación: filtros -->
+  <nav class="sidebar__nav">
+    <button
+      class="sidebar__nav-item"
+      [class.sidebar__nav-item--active]="activeFilter === 'todas'"
+      (click)="filterChanged.emit('todas'); closed.emit()"
+      id="filter-todas"
+    >
+      <mat-icon>list</mat-icon>
+      <span>Todas las tareas</span>
+      <span class="nav-badge">{{ totalTasks }}</span>
+    </button>
+
+    <button
+      class="sidebar__nav-item"
+      [class.sidebar__nav-item--active]="activeFilter === 'pendientes'"
+      (click)="filterChanged.emit('pendientes'); closed.emit()"
+      id="filter-pendientes"
+    >
+      <mat-icon>radio_button_unchecked</mat-icon>
+      <span>Pendientes</span>
+      <span class="nav-badge">{{ pendingCount }}</span>
+    </button>
+
+    <button
+      class="sidebar__nav-item"
+      [class.sidebar__nav-item--active]="activeFilter === 'completadas'"
+      (click)="filterChanged.emit('completadas'); closed.emit()"
+      id="filter-completadas"
+    >
+      <mat-icon>check_circle</mat-icon>
+      <span>Completadas</span>
+      <span class="nav-badge">{{ completedCount }}</span>
+    </button>
+  </nav>
+
+  <!-- Footer: Avatar + Nueva Tarea -->
+  <div class="sidebar__footer">
+    <div class="sidebar__user-row">
+      <!-- Avatar del usuario -->
+      <button
+        class="user-avatar"
+        (click)="profileClicked.emit(); closed.emit()"
+        id="btn-open-profile-sidebar"
+        title="Ajustes de perfil"
+      >
+        @if (userAvatarUrl) {
+          <img [src]="userAvatarUrl" alt="Avatar" class="user-avatar__img" />
+        } @else {
+          <span class="user-avatar__initials">{{ userInitials }}</span>
+        }
+      </button>
+
+      <!-- Botón nueva tarea -->
+      <button
+        class="btn btn--primary btn--full"
+        (click)="addTaskClicked.emit(); closed.emit()"
+        id="btn-nueva-tarea-sidebar"
+      >
+        <mat-icon>add</mat-icon>
+        Nueva Tarea
+      </button>
+    </div>
+  </div>
+</aside>

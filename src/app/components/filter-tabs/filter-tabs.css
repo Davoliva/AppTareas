@@ -1,0 +1,68 @@
+/* ══════════════════════════════════════════════════════════════════════
+   FILTER TABS — Estilos
+   ══════════════════════════════════════════════════════════════════════ */
+
+.filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  scrollbar-width: none;
+}
+
+.filter-tabs::-webkit-scrollbar { display: none; }
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface-variant);
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.filter-tab:hover {
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+  transform: translateY(-1px);
+}
+
+.filter-tab--active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 12px rgba(145, 0, 10, 0.25);
+}
+
+.filter-tab--active:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-1px);
+}
+
+.filter-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.1rem 0.6rem;
+  min-width: 2rem;
+}
+
+.filter-tab:not(.filter-tab--active) .filter-tab__count {
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+}

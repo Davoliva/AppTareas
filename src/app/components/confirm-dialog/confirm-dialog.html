@@ -1,0 +1,42 @@
+@if (isOpen) {
+  <div
+    class="modal-backdrop"
+    (click)="cancelled.emit()"
+    role="alertdialog"
+    aria-modal="true"
+  >
+    <div class="modal modal--small" (click)="$event.stopPropagation()">
+      <!-- Header -->
+      <div class="modal__header modal__header--danger">
+        <h2 class="modal__title">
+          <mat-icon>warning</mat-icon>
+          {{ title }}
+        </h2>
+      </div>
+
+      <!-- Cuerpo -->
+      <div class="modal__body">
+        <p class="modal__message">{{ message }}</p>
+      </div>
+
+      <!-- Acciones -->
+      <div class="modal__footer">
+        <button
+          class="btn btn--ghost"
+          (click)="cancelled.emit()"
+          id="btn-cancel-confirm"
+        >
+          {{ cancelText }}
+        </button>
+        <button
+          class="btn btn--danger"
+          (click)="confirmed.emit()"
+          id="btn-confirm-action"
+        >
+          <mat-icon>delete</mat-icon>
+          {{ confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

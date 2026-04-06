@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-container-highest: #e4e2e1;
+  --color-on-surface: #1b1c1c;
+  --color-on-surface-variant: #5b403d;
+  --color-primary: #91000a;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #b71c1c;
+  --color-secondary: #944a00;
+  --color-secondary-container: #fc8f34;
+  --color-outline-variant: #e4beb9;
+  --color-secondary-fixed: #ffdcc5;
+  --color-on-secondary-fixed: #301400;
+  --color-primary-fixed-dim: #ffb4ab;
+  --color-tertiary-fixed: #e9e2d3;
+  --color-on-tertiary-fixed-variant: #4b463c;
+
+  --font-headline: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'Inter', sans-serif;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.signature-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+}
+
+.custom-shadow {
+  box-shadow: 0 12px 32px -8px rgba(91, 64, 61, 0.08);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DARK THEME — applied via .dark-theme on <html>
+   ══════════════════════════════════════════════════════════════════════ */
+html.dark-theme {
+  --color-surface: #121212;
+  --color-surface-container-lowest: #1e1e1e;
+  --color-surface-container-low: #1a1a1a;
+  --color-surface-container: #242424;
+  --color-surface-container-high: #2c2c2c;
+  --color-surface-container-highest: #353535;
+  --color-on-surface: #e8e0de;
+  --color-on-surface-variant: #c4a6a1;
+  --color-primary: #ff6b6b;
+  --color-on-primary: #1a0000;
+  --color-primary-container: #ff4444;
+  --color-secondary: #ffab76;
+  --color-secondary-container: #e07832;
+  --color-outline-variant: #4a3532;
+  --color-secondary-fixed: #3d2a1e;
+  --color-on-secondary-fixed: #ffdcc5;
+  --color-primary-fixed-dim: #7a3535;
+  --color-tertiary-fixed: #3a372f;
+  --color-on-tertiary-fixed-variant: #c4bead;
+}
+
+html.dark-theme body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
